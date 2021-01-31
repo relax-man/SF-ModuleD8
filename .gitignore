@@ -10,3 +10,5 @@ env/
 # Database
 src/db.sqlite3
 
+# Local settings
+src/settings/local.py
