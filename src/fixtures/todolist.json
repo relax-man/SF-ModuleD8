@@ -1,0 +1,111 @@
+[
+{
+    "model": "todolist.category",
+    "pk": 7,
+    "fields": {
+        "slug": "space",
+        "name": "Space",
+        "tasks_count": 2
+    }
+},
+{
+    "model": "todolist.category",
+    "pk": 8,
+    "fields": {
+        "slug": "modern",
+        "name": "Modern",
+        "tasks_count": 1
+    }
+},
+{
+    "model": "todolist.category",
+    "pk": 12,
+    "fields": {
+        "slug": "space-1",
+        "name": "Space 1",
+        "tasks_count": 1
+    }
+},
+{
+    "model": "todolist.priority",
+    "pk": 1,
+    "fields": {
+        "level": 1,
+        "tasks_count": 1
+    }
+},
+{
+    "model": "todolist.priority",
+    "pk": 2,
+    "fields": {
+        "level": 2,
+        "tasks_count": 3
+    }
+},
+{
+    "model": "todolist.priority",
+    "pk": 3,
+    "fields": {
+        "level": 3,
+        "tasks_count": 0
+    }
+},
+{
+    "model": "todolist.todoitem",
+    "pk": 2,
+    "fields": {
+        "description": "Do all together",
+        "is_completed": true,
+        "created": "2021-01-31T18:33:36.358Z",
+        "updated": "2021-02-03T17:04:56.198Z",
+        "priority": 1,
+        "owner": 1,
+        "category": [
+            7,
+            8,
+            12
+        ]
+    }
+},
+{
+    "model": "todolist.todoitem",
+    "pk": 4,
+    "fields": {
+        "description": "Watch TV",
+        "is_completed": true,
+        "created": "2021-01-31T18:49:43.954Z",
+        "updated": "2021-02-03T17:05:00.530Z",
+        "priority": 2,
+        "owner": 1,
+        "category": []
+    }
+},
+{
+    "model": "todolist.todoitem",
+    "pk": 8,
+    "fields": {
+        "description": "Listen to David Bowie",
+        "is_completed": false,
+        "created": "2021-02-02T22:12:46.943Z",
+        "updated": "2021-02-03T17:09:03.736Z",
+        "priority": 2,
+        "owner": 1,
+        "category": [
+            7
+        ]
+    }
+},
+{
+    "model": "todolist.todoitem",
+    "pk": 11,
+    "fields": {
+        "description": "Something",
+        "is_completed": false,
+        "created": "2021-02-03T16:40:48.640Z",
+        "updated": "2021-02-03T16:40:48.640Z",
+        "priority": 2,
+        "owner": 1,
+        "category": []
+    }
+}
+]
