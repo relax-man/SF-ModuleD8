@@ -1,0 +1,14 @@
+.main-link {
+    position: relative;
+    height: 30em;
+    background-position: center;
+    background-size: cover;
+    filter: blur(3px) brightness(0.8);
+}
+
+.main-page-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

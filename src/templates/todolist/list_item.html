@@ -1,0 +1,127 @@
+{% extends 'index.html' %}
+
+{% load todolist_tags %}
+
+{% block header %}
+<div class="row">
+    {% include 'main/back_button.html' with url='main:index' page_name='Main page' %}
+</div>
+<div class="row my-3">
+    <span class="h2">To-Do List</span>
+</div>
+<div class="row d-flex justify-content-between">
+    <div class="dropdown">
+        <button
+            class="btn btn-white dropdown-toggle"
+            id="itemlistSortByDropdown"
+            data-toggle="dropdown"
+        >
+            Priority: {% if priority.exists %}{{ priority.first }}{% else %}All{% endif %}
+        </button>
+        <div
+            class="dropdown-menu"
+            aria-labelledby="itemlistSortByDropdown"
+        >
+            <a
+                href="{% url 'todolist:list_item' %}"
+                class="dropdown-item"
+            >
+                All
+            </a>
+            <div class="dropdown-divider"></div>
+            {% for priority in priorities_list %}
+            <a
+                href="{% url 'todolist:list_item' priority.level %}"
+                class="dropdown-item"
+            >
+                {{ priority }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <a
+        href="{% url 'todolist:create_item' %}"
+        class="btn btn-dark"
+    >
+        Create item
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="tasks-container row flex-column flex-nowrap mt-3">
+    {% for task in object_list %}
+    <div class="task col flex-grow-0 bg-light m-0 mb-3">
+        <div class="row">
+            <div class="col flex-grow-0 d-flex align-items-center">
+                <div class="task__number">
+                    <span class="h4 text-white">{{ forloop.counter }}</span>
+                </div>
+            </div>
+            <div class="col flex-grow-1 position-static p-4 pl-md-0">
+                <h5 class="truncate">
+                    {{ task.description }}
+                    {% if task.is_completed %}
+                    <i class="fas fa-check text-success"></i>
+                    {% else %}
+                    <i class="fas fa-ban text-danger"></i>
+                    {% endif %}
+                </h5>
+                <p>
+                    Priority: {{ task.priority }}
+                    <br>
+                    {% if task.category.exists %}
+                    Categories:
+                    {% for category in task.category.all %}
+                    {{ category.name }}{% if category != task.category.last %},{% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="col flex-grow-0 d-flex align-items-center">
+                <a
+                    href="{% url 'todolist:toggle_complete' pk=task.pk %}"
+                    class="task__btn task__btn_is-completed btn btn-outline-white"
+                >
+                    <small class="text-muted text-nowrap">
+                        Mark as {% if task.is_completed %}un{% endif%}done
+                    </small>
+                </a>
+            </div>
+            <div class="col flex-grow-0 d-flex flex-column justify-content-center">
+                <a
+                    href="{% url 'todolist:delete_item' pk=task.pk %}"
+                    class="task__btn btn btn-danger"
+                >
+                    <span class="mr-2">Delete</span>
+                    <i class="fas fa-times"></i>
+                </a>
+                <a
+                    href="{% url 'todolist:update_item' pk=task.pk %}"
+                    class="task__btn btn btn-dark mt-2"
+                >
+                    <span class="mr-2">Edit</span>
+                    <i class="fas fa-edit"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="priorities-container row flex-column">
+    <span class="h3 my-3">Priorities</span>
+    {% with priorities_list|field_sum:'tasks_count' as total_count %}
+    {% for priority in priorities_list %}
+    {% if priority.tasks_count %}
+    <small class="text-muted">{{ priority }}</small>
+    <div class="progress">
+        <div
+            class="progress-bar"
+            style="width: {{ priority.tasks_count|get_percentage:total_count }}%;"
+        >{{ priority.tasks_count }}</div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+</div>
+{% endblock  %}

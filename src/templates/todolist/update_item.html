@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block header %}
+<div class="row">
+    {% include 'main/back_button.html' with url='todolist:list_item' page_name='Todo list' %}
+</div>
+<div class="row my-3">
+    <span class="h3">Item editing</span>
+</div>
+{% endblock %}
+
+{% block content %}
+<form
+    action="{% url 'todolist:update_item' pk=object.pk %}"
+    method="POST"
+    class="row flex-column"
+>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="d-flex">
+        <button
+            type="submit"
+            class="btn btn-outline-success ml-auto"
+        >Update</button>
+    </div>
+</form>
+{% endblock %}

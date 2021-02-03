@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+
+{% block header %}
+<div class="row">
+    {% include 'main/back_button.html' with url='main:index' page_name='Main page' %}
+</div>
+<div class="row my-3">
+    <span class="h2">Categories list</span>
+</div>
+<div class="row">
+    <a
+        href="{% url 'todolist:create_category' %}"
+        class="btn btn-dark ml-auto"
+    >
+        Create category
+    </a>
+</div>
+{% endblock  %}
+
+{% block content %}
+{% for category in object_list %}
+<div class="category row align-items-center p-2 mt-2">
+    <span class="col flex-grow-0 h5 text-muted text-nowrap m-0">
+        {{ category }}
+    </span>
+    <span>|</span>
+    <span class="col h6 m-0">
+        Tasks: {{ category.tasks_count }}
+    </span>
+    <a
+        class="col flex-grow-0 btn btn-danger"
+        href="{% url 'todolist:delete_category' pk=category.pk %}"
+    >
+        Delete
+    </a>
+</div>
+{% endfor %}
+{% endblock %}

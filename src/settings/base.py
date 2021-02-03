@@ -13,11 +13,13 @@ DEFAULT_APPS = [
 ]
 
 SITE_APPS = [
-    'apps.main'
+    'apps.main.apps.MainConfig',
+    'apps.todolist.apps.TodolistConfig'
 ]
 
 THIRD_PARTY_APPS = [
-    'crispy_forms'
+    'crispy_forms',
+    'model_utils'
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + SITE_APPS + DEFAULT_APPS
@@ -79,6 +81,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles'
+]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
