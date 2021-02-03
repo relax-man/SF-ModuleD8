@@ -35,6 +35,7 @@ class TodoItemListView(LoginRequiredMixin, ListView):
 
     model = TodoItem
     template_name = 'todolist/list_item.html'
+    login_url = reverse_lazy('admin:index')
 
     def get(self, request, *args, **kwargs):
         self.priority = kwargs.get('priority')

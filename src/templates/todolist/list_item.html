@@ -6,9 +6,11 @@
 <div class="row">
     {% include 'main/back_button.html' with url='main:index' page_name='Main page' %}
 </div>
+<hr class="row">
 <div class="row my-3">
-    <span class="h2">To-Do List</span>
+    <span class="col-12 h2">To-Do List</span>
 </div>
+<hr class="row">
 <div class="row d-flex justify-content-between">
     <div class="dropdown">
         <button
@@ -50,15 +52,16 @@
 
 {% block content %}
 <div class="tasks-container row flex-column flex-nowrap mt-3">
+    {% if object_list.exists %}
     {% for task in object_list %}
     <div class="task col flex-grow-0 bg-light m-0 mb-3">
-        <div class="row">
+        <div class="row py-3 py-md-0">
             <div class="col flex-grow-0 d-flex align-items-center">
                 <div class="task__number">
                     <span class="h4 text-white">{{ forloop.counter }}</span>
                 </div>
             </div>
-            <div class="col flex-grow-1 position-static p-4 pl-md-0">
+            <div class="task__description col flex-grow-1 p-4">
                 <h5 class="truncate">
                     {{ task.description }}
                     {% if task.is_completed %}
@@ -78,7 +81,7 @@
                     {% endif %}
                 </p>
             </div>
-            <div class="col flex-grow-0 d-flex align-items-center">
+            <div class="col flex-md-grow-0 d-flex align-items-center mb-2 mb-sm-0">
                 <a
                     href="{% url 'todolist:toggle_complete' pk=task.pk %}"
                     class="task__btn task__btn_is-completed btn btn-outline-white"
@@ -88,7 +91,7 @@
                     </small>
                 </a>
             </div>
-            <div class="col flex-grow-0 d-flex flex-column justify-content-center">
+            <div class="col flex-md-grow-0 d-flex flex-column justify-content-center">
                 <a
                     href="{% url 'todolist:delete_item' pk=task.pk %}"
                     class="task__btn btn btn-danger"
@@ -107,6 +110,11 @@
         </div>
     </div>
     {% endfor %}
+    {% else %}
+    <div class="col d-flex align-items-center justify-content-center">
+        <span class="display-4 text-center">No tasks here yet</span>
+    </div>
+    {% endif %}
 </div>
 <div class="priorities-container row flex-column">
     <span class="h3 my-3">Priorities</span>
